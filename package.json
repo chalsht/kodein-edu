@@ -9,9 +9,14 @@
     "lint": "eslint"
   },
   "dependencies": {
+    "formidable": "^3.5.4",
+    "framer-motion": "^12.42.2",
+    "mysql2": "^3.23.2",
     "next": "16.2.12",
     "react": "19.2.4",
-    "react-dom": "19.2.4"
+    "react-dom": "19.2.4",
+    "react-icons": "^5.7.0",
+    "swiper": "^14.0.7"
   },
   "devDependencies": {
     "@tailwindcss/postcss": "^4",
