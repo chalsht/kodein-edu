@@ -1,112 +1,100 @@
 "use client";
 
-// =============================================
-// SIDEBAR ADMIN
-// File : components/SidebarAdmin.js
-// =============================================
-
 import Link from "next/link";
-import { useRouter } from "next/navigation";
+import { useRouter, usePathname } from "next/navigation";
+import { useState, useEffect } from "react";
 
 export default function SidebarAdmin() {
-
-  // Router Next.js
   const router = useRouter();
+  const pathname = usePathname();
 
-  // =============================================
-  // Logout
-  // =============================================
+  const [open, setOpen] = useState(false);
+  console.log("Sidebar open:", open);
+
+  useEffect(() => {
+    setOpen(false);
+  }, [pathname]);
 
   function logout() {
-
-    // Hapus status login
     localStorage.removeItem("login");
-
-    alert("Logout berhasil.");
-
     router.push("/");
-
   }
 
+  const menu = [
+    { href: "/dashboard", icon: "🏠", label: "Dashboard" },
+    { href: "/dashboard/program", icon: "📚", label: "Kelola Program" },
+    { href: "/dashboard/pesan", icon: "📩", label: "Pesan Masuk" },
+    { href: "/dashboard/pendaftaran", icon: "📝", label: "Data Pendaftar" },
+  ];
+
   return (
+    <>
+      {/* Tombol Menu Mobile */}
+      <button
+        onClick={() => setOpen(true)}
+        className="fixed top-5 left-5 z-50 md:hidden bg-slate-900 text-white p-2 rounded-lg shadow-lg"
+      >
+        ☰
+      </button>
 
-    <aside className="w-72 bg-slate-900 text-white min-h-screen p-6 fixed">
+      {/* Overlay */}
+      {open && (
+        <div
+          onClick={() => setOpen(false)}
+          className="fixed inset-0 bg-black/40 z-40 md:hidden"
+        />
+      )}
 
-      {/* Logo */}
-
-      <h1 className="text-3xl font-bold text-orange-400">
-
-        Kodein Edu
-
-      </h1>
-
-      <p className="text-gray-400 mt-2">
-
-        Dashboard Admin
-
-      </p>
-
-      {/* Menu */}
-
-      <nav className="mt-10 space-y-3">
-
-        {/* Dashboard */}
-
-        <Link
-          href="/dashboard"
-          className="block px-4 py-3 rounded-lg hover:bg-orange-500 duration-300"
-        >
-
-          🏠 Dashboard
-
-        </Link>
-
-        {/* Kelola Program */}
-
-        <Link
-          href="/dashboard/program"
-          className="block px-4 py-3 rounded-lg hover:bg-orange-500 duration-300"
-        >
-
-          📚 Kelola Program
-
-        </Link>
-
-        {/* Pesan Masuk */}
-
-        <Link
-          href="/dashboard/pesan"
-          className="block px-4 py-3 rounded-lg hover:bg-orange-500 duration-300"
-        >
-
-          📩 Pesan Masuk
-
-        </Link>
-
-        {/* Data Pendaftar */}
-
-<Link
-  href="/dashboard/pendaftaran"
-  className="block px-4 py-3 rounded-lg hover:bg-orange-500 duration-300"
+      {/* Sidebar */}
+  <aside
+  className={`
+    fixed top-0 h-screen w-72 bg-slate-900 text-white p-6 z-50
+    transition-all duration-300
+    ${open ? "left-0" : "-left-72"}
+    md:left-0
+  `}
 >
-  📝 Data Pendaftar
-</Link>
+        <div className="flex justify-between items-center">
+          <div>
+            <h1 className="text-2xl font-bold text-orange-400">
+              Kodein Edu
+            </h1>
+            <p className="text-gray-400 mt-1">
+              Dashboard Admin
+            </p>
+          </div>
 
-        {/* Logout */}
+          <button
+            onClick={() => setOpen(false)}
+            className="md:hidden text-2xl"
+          >
+            ✕
+          </button>
+        </div>
 
-        <button
-          onClick={logout}
-          className="w-full text-left px-4 py-3 rounded-lg bg-red-500 hover:bg-red-600 duration-300"
-        >
+        <nav className="mt-10 space-y-3">
+          {menu.map((item) => (
+            <Link
+              key={item.href}
+              href={item.href}
+              className={`block px-4 py-3 rounded-lg transition ${
+                pathname === item.href
+                  ? "bg-orange-500"
+                  : "hover:bg-orange-500"
+              }`}
+            >
+              {item.icon} {item.label}
+            </Link>
+          ))}
 
-          🚪 Logout
-
-        </button>
-
-      </nav>
-
-    </aside>
-
+          <button
+            onClick={logout}
+            className="w-full mt-6 bg-red-500 hover:bg-red-600 rounded-lg py-3"
+          >
+            🚪 Logout
+          </button>
+        </nav>
+      </aside>
+    </>
   );
-
 }

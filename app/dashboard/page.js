@@ -93,34 +93,21 @@ function logout() {
             {/* JUDUL */}
             {/* ========================= */}
 
-            <h1 className="text-4xl font-bold">
-
+            <h1 className="text-2xl md:text-4xl font-bold">
                 Dashboard Admin
 
             </h1>
-
-            <div className="flex justify-between items-center mt-2">
-
+<div className="mt-2">
     <p className="text-gray-500">
-
-        Selamat datang di Dashboard Kodein Edu Center.
-
-    </p>
-
-    <button
-        onClick={logout}
-        className="bg-red-500 hover:bg-red-600 text-white px-5 py-2 rounded-lg"
-    >
-        Logout
-    </button>
-
+    Selamat datang di Dashboard Kodein Edu Center.
+</p>
 </div>
 
             {/* ========================= */}
             {/* CARD */}
             {/* ========================= */}
 
-            <div className="grid md:grid-cols-3 gap-8 mt-10">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mt-10">
 
                 {/* Program */}
 
@@ -132,7 +119,7 @@ function logout() {
 
                     </h2>
 
-                    <p className="text-5xl font-bold text-orange-500 mt-4">
+                    <p className="text-4xl md:text-5xl font-bold text-orange-500 mt-4">
 
                         {jumlahProgram}
 
@@ -150,7 +137,7 @@ function logout() {
 
                     </h2>
 
-                    <p className="text-5xl font-bold text-blue-500 mt-4">
+                    <p className="text-4xl md:text-5xl font-bold text-blue-500 mt-4">
 
                         {jumlahPesan}
 
@@ -167,7 +154,7 @@ function logout() {
 
     </h2>
 
-    <p className="text-5xl font-bold text-green-500 mt-4">
+    <p className="text-4xl md:text-5xl font-bold text-green-500 mt-4">
 
         {jumlahPendaftar}
 
