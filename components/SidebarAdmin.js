@@ -9,7 +9,6 @@ export default function SidebarAdmin() {
   const pathname = usePathname();
 
   const [open, setOpen] = useState(false);
-  console.log("Sidebar open:", open);
 
   useEffect(() => {
     setOpen(false);
@@ -29,10 +28,10 @@ export default function SidebarAdmin() {
 
   return (
     <>
-      {/* Tombol Menu Mobile */}
+      {/* Tombol Mobile */}
       <button
         onClick={() => setOpen(true)}
-        className="fixed top-5 left-5 z-50 md:hidden bg-slate-900 text-white p-2 rounded-lg shadow-lg"
+        className="fixed top-5 left-5 z-50 md:hidden bg-slate-900 text-white px-3 py-2 rounded-lg"
       >
         ☰
       </button>
@@ -40,41 +39,35 @@ export default function SidebarAdmin() {
       {/* Overlay */}
       {open && (
         <div
+          className="fixed inset-0 bg-black/50 z-40 md:hidden"
           onClick={() => setOpen(false)}
-          className="fixed inset-0 bg-black/40 z-40 md:hidden"
         />
       )}
 
       {/* Sidebar */}
-<aside
-  className={`
-    bg-slate-900 text-white w-72 p-6
-    md:relative md:min-h-[calc(100vh-80px)]
+      <aside
+        className={`
+          bg-slate-900 text-white
+          w-72 p-6 flex-shrink-0
 
-    fixed top-0 left-0 h-screen z-50
-    transition-transform duration-300
+          fixed top-0 left-0 h-screen z-50
+          transition-transform duration-300
 
-    ${open ? "translate-x-0" : "-translate-x-full"}
-    md:translate-x-0
-  `}
->
-        <div className="flex justify-between items-center">
-          <div>
-            <h1 className="text-2xl font-bold text-orange-400">
-              Kodein Edu
-            </h1>
-            <p className="text-gray-400 mt-1">
-              Dashboard Admin
-            </p>
-          </div>
+          ${open ? "translate-x-0" : "-translate-x-full"}
 
-          <button
-            onClick={() => setOpen(false)}
-            className="md:hidden text-2xl"
-          >
-            ✕
-          </button>
-        </div>
+          md:static
+          md:translate-x-0
+          md:h-auto
+          md:min-h-full
+        `}
+      >
+        <h1 className="text-3xl font-bold text-orange-400">
+          Kodein Edu
+        </h1>
+
+        <p className="text-gray-400 mt-2">
+          Dashboard Admin
+        </p>
 
         <nav className="mt-10 space-y-3">
           {menu.map((item) => (
@@ -93,7 +86,7 @@ export default function SidebarAdmin() {
 
           <button
             onClick={logout}
-            className="w-full mt-6 bg-red-500 hover:bg-red-600 rounded-lg py-3"
+            className="w-full mt-6 bg-red-500 hover:bg-red-600 py-3 rounded-lg"
           >
             🚪 Logout
           </button>
