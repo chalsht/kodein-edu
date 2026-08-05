@@ -287,10 +287,10 @@ setGambar(null);
     gambar &&
 
     <img
-      src={URL.createObjectURL(gambar)}
-      alt="Preview"
-      className="w-48 mt-4 rounded-xl border"
-    />
+  src={`/images/${item.gambar}`}
+  alt={item.nama_program}
+  className="w-20 h-14 object-cover rounded-lg"
+/>
 
   }
 
@@ -319,9 +319,9 @@ setGambar(null);
           TABEL DATA PROGRAM
       ====================================================== */}
 
-      <div className="bg-white shadow-lg rounded-xl mt-10 overflow-hidden">
+      <div className="bg-white shadow-lg rounded-xl mt-10 overflow-x-auto">
 
-        <table className="w-full">
+  <table className="min-w-max w-full">
 
           {/* ==========================
               Header Tabel
@@ -424,14 +424,13 @@ setGambar(null);
 
 {/* Deskripsi */}
 
-<td className="max-w-md">
-
+<td className="max-w-xs whitespace-normal break-words p-4">
   {item.deskripsi}
-
 </td>
                     {/* Tombol */}
 
-                    <td className="space-x-2">
+                    <td className="p-4">
+                      <div className="flex flex-col md:flex-row gap-2">
 
                       {/* Tombol Edit */}
 
@@ -464,6 +463,7 @@ setGambar(null);
                         Hapus
 
                       </button>
+                      </div>
 
                     </td>
 
