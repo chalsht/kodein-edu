@@ -46,13 +46,16 @@ export default function SidebarAdmin() {
       )}
 
       {/* Sidebar */}
-  <aside
+<aside
   className={`
-    bg-slate-900 text-white p-6 w-72
-    md:static md:h-auto md:min-h-screen
-    fixed top-0 h-screen z-50
+    bg-slate-900 text-white w-72 p-6
+    md:relative md:min-h-screen md:left-0
+
+    fixed top-0 left-0 h-screen z-50
     transition-all duration-300
-    ${open ? "left-0" : "-left-72"}
+
+    ${open ? "translate-x-0" : "-translate-x-full"}
+    md:translate-x-0
   `}
 >
         <div className="flex justify-between items-center">
