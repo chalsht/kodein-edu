@@ -19,9 +19,9 @@ export default function DashboardLayout({ children }) {
     <div className="flex min-h-screen">
       <SidebarAdmin />
 
-      <main className="flex-1 bg-slate-100 p-5 md:p-10 pt-20 md:pt-10">
-        {children}
-      </main>
+<main className="flex-1 min-h-screen bg-slate-100 p-5 md:p-10 pt-20 md:pt-10">
+  {children}
+</main>
     </div>
   );
 }
