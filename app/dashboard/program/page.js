@@ -283,16 +283,15 @@ setGambar(null);
     className="w-full border rounded-lg p-3"
   />
 
-  {
-    gambar &&
-
+{
+  gambar && (
     <img
-  src={`/images/${item.gambar}`}
-  alt={item.nama_program}
-  className="w-20 h-14 object-cover rounded-lg"
-/>
-
-  }
+      src={URL.createObjectURL(gambar)}
+      alt="Preview"
+      className="w-48 mt-4 rounded-lg border"
+    />
+  )
+}
 
 </div>
 
@@ -319,9 +318,10 @@ setGambar(null);
           TABEL DATA PROGRAM
       ====================================================== */}
 
-      <div className="bg-white shadow-lg rounded-xl mt-10 overflow-x-auto">
+      <div className="mt-10 overflow-x-auto">
+  <div className="bg-white shadow-lg rounded-xl inline-block min-w-full">
 
-  <table className="min-w-max w-full">
+  <table className="w-full border-collapse">
 
           {/* ==========================
               Header Tabel
@@ -329,21 +329,14 @@ setGambar(null);
 
           <thead className="bg-slate-900 text-white">
 
-  <tr>
-
-    <th className="p-4">No</th>
-
-    <th>Gambar</th>
-
-    <th>Nama Program</th>
-
-    <th>Kategori</th>
-
-    <th>Deskripsi</th>
-
-    <th>Aksi</th>
-
-  </tr>
+ <tr>
+  <th className="p-4 w-16">No</th>
+  <th className="p-4 w-32">Gambar</th>
+  <th className="p-4 w-56">Nama Program</th>
+  <th className="p-4 w-48">Kategori</th>
+  <th className="p-4">Deskripsi</th>
+  <th className="p-4 w-40">Aksi</th>
+</tr>
 
 </thead>
           {/* ==========================
@@ -424,13 +417,15 @@ setGambar(null);
 
 {/* Deskripsi */}
 
-<td className="max-w-xs whitespace-normal break-words p-4">
-  {item.deskripsi}
+<td className="p-4 align-top">
+  <div className="max-w-md">
+    {item.deskripsi}
+  </div>
 </td>
                     {/* Tombol */}
 
                     <td className="p-4">
-                      <div className="flex flex-col md:flex-row gap-2">
+                      <div className="flex gap-2 whitespace-nowrap">
 
                       {/* Tombol Edit */}
 
@@ -485,6 +480,8 @@ setGambar(null);
       ====================================================== */}
 
     </div>
+    </div>
+    
 
   );
 
