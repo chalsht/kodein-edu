@@ -7,7 +7,7 @@ export default async function DataPendaftar() {
   );
 
   return (
-    <div className="ml-72 p-10">
+    <div className="p-5 md:p-10">
       <h1 className="text-4xl font-bold mb-8">
         Data Pendaftar
       </h1>
