@@ -49,10 +49,10 @@ export default function SidebarAdmin() {
 <aside
   className={`
     bg-slate-900 text-white w-72 p-6
-    md:relative md:min-h-screen md:left-0
+    md:relative md:min-h-[calc(100vh-80px)]
 
     fixed top-0 left-0 h-screen z-50
-    transition-all duration-300
+    transition-transform duration-300
 
     ${open ? "translate-x-0" : "-translate-x-full"}
     md:translate-x-0
