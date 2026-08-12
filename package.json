@@ -10,7 +10,7 @@
   },
   "dependencies": {
     "formidable": "^3.5.4",
-    "framer-motion": "^12.42.2",
+    "framer-motion": "^12.43.0",
     "mysql2": "^3.23.2",
     "next": "16.2.12",
     "react": "19.2.4",

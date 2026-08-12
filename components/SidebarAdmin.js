@@ -19,12 +19,55 @@ export default function SidebarAdmin() {
     router.push("/");
   }
 
-  const menu = [
-    { href: "/dashboard", icon: "🏠", label: "Dashboard" },
-    { href: "/dashboard/program", icon: "📚", label: "Kelola Program" },
-    { href: "/dashboard/pesan", icon: "📩", label: "Pesan Masuk" },
-    { href: "/dashboard/pendaftaran", icon: "📝", label: "Data Pendaftar" },
-  ];
+ const menu = [
+  {
+    href: "/dashboard",
+    icon: "🏠",
+    label: "Dashboard",
+  },
+
+  {
+    href: "/dashboard/program",
+    icon: "📚",
+    label: "Kelola Program",
+  },
+
+  {
+    href: "/dashboard/materi",
+    icon: "📖",
+    label: "Kelola Materi",
+  },
+
+  {
+    href: "/dashboard/quiz",
+    icon: "❓",
+    label: "Kelola Quiz",
+  },
+
+  {
+    href: "/dashboard/pendaftaran",
+    icon: "📝",
+    label: "Data Pendaftar",
+  },
+
+  {
+    href: "/dashboard/peserta",
+    icon: "👨‍🎓",
+    label: "Data Peserta",
+  },
+
+  {
+    href: "/dashboard/sertifikat",
+    icon: "🏆",
+    label: "Sertifikat",
+  },
+
+  {
+    href: "/dashboard/pesan",
+    icon: "📩",
+    label: "Pesan Masuk",
+  },
+];
 
   return (
     <>

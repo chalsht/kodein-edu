@@ -16,19 +16,26 @@ export default function Dashboard(){
     const [jumlahProgram,setJumlahProgram]=useState(0);
     const [jumlahPesan,setJumlahPesan]=useState(0);
     const [jumlahPendaftar,setJumlahPendaftar]=useState(0);
+    const [jumlahPeserta, setJumlahPeserta] = useState(0);
+    const [jumlahMateri, setJumlahMateri] = useState(0);
+    const [jumlahQuiz, setJumlahQuiz] = useState(0);
+    const [jumlahSertifikat, setJumlahSertifikat] = useState(0);
     const router = useRouter();
-    // ===========================================
-    // AMBIL DATA
-    // ===========================================
+   // ===========================================
+// AMBIL DATA
+// ===========================================
 
-    useEffect(()=>{
+useEffect(() => {
 
-        getProgram();
-        getPesan();
-        getPendaftar();
+    getProgram();
+    getPesan();
+    getPendaftar();
+    getPeserta();
+    getMateri();
+    getQuiz();
+    getSertifikat();
 
-
-    },[]);
+}, []);
 
     // ===========================================
     // HITUNG PROGRAM
@@ -70,6 +77,61 @@ async function getPendaftar(){
     const data = await res.json();
 
     setJumlahPendaftar(data.length);
+
+}
+// ===========================================
+// HITUNG PESERTA
+// ===========================================
+
+async function getPeserta(){
+
+    const res = await fetch("/api/users");
+
+    const data = await res.json();
+
+    setJumlahPeserta(data.length);
+
+}
+
+// ===========================================
+// HITUNG MATERI
+// ===========================================
+
+async function getMateri(){
+
+    const res = await fetch("/api/materi");
+
+    const data = await res.json();
+
+    setJumlahMateri(data.length);
+
+}
+
+// ===========================================
+// HITUNG QUIZ
+// ===========================================
+
+async function getQuiz(){
+
+    const res = await fetch("/api/quiz");
+
+    const data = await res.json();
+
+    setJumlahQuiz(data.length);
+
+}
+
+// ===========================================
+// HITUNG SERTIFIKAT
+// ===========================================
+
+async function getSertifikat(){
+
+    const res = await fetch("/api/sertifikat");
+
+    const data = await res.json();
+
+    setJumlahSertifikat(data.length);
 
 }
 // ===========================================
@@ -157,6 +219,77 @@ function logout() {
     <p className="text-4xl md:text-5xl font-bold text-green-500 mt-4">
 
         {jumlahPendaftar}
+
+    </p>
+
+</div>
+{/* Total Peserta */}
+
+<div className="bg-white rounded-xl shadow-lg p-8">
+
+    <h2 className="text-xl text-gray-500">
+
+        Total Peserta
+
+    </h2>
+
+    <p className="text-4xl md:text-5xl font-bold text-purple-500 mt-4">
+
+        {jumlahPeserta}
+
+    </p>
+
+</div>
+
+{/* Total Materi */}
+
+<div className="bg-white rounded-xl shadow-lg p-8">
+
+    <h2 className="text-xl text-gray-500">
+
+        Total Materi
+
+    </h2>
+
+    <p className="text-4xl md:text-5xl font-bold text-cyan-500 mt-4">
+
+        {jumlahMateri}
+
+    </p>
+
+</div>
+
+{/* Total Quiz */}
+
+<div className="bg-white rounded-xl shadow-lg p-8">
+
+    <h2 className="text-xl text-gray-500">
+
+        Total Quiz
+
+    </h2>
+
+    <p className="text-4xl md:text-5xl font-bold text-pink-500 mt-4">
+
+        {jumlahQuiz}
+
+    </p>
+
+</div>
+
+{/* Total Sertifikat */}
+
+<div className="bg-white rounded-xl shadow-lg p-8">
+
+    <h2 className="text-xl text-gray-500">
+
+        Total Sertifikat
+
+    </h2>
+
+    <p className="text-4xl md:text-5xl font-bold text-emerald-500 mt-4">
+
+        {jumlahSertifikat}
 
     </p>
 

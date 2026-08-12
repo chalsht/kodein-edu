@@ -3,6 +3,7 @@
 import { useState } from "react";
 
 export default function Pendaftaran() {
+
   const [form, setForm] = useState({
     nama: "",
     email: "",
@@ -11,26 +12,34 @@ export default function Pendaftaran() {
   });
 
   function handleChange(e) {
+
     setForm({
       ...form,
       [e.target.name]: e.target.value,
     });
+
   }
 
   async function handleSubmit(e) {
+
     e.preventDefault();
 
     const res = await fetch("/api/pendaftaran", {
+
       method: "POST",
+
       headers: {
         "Content-Type": "application/json",
       },
+
       body: JSON.stringify(form),
+
     });
 
     const data = await res.json();
 
     if (data.success) {
+
       alert("Pendaftaran berhasil!");
 
       setForm({
@@ -41,13 +50,18 @@ export default function Pendaftaran() {
       });
 
     } else {
+
       alert(data.message);
+
     }
+
   }
 
   return (
-    <main className="min-h-screen bg-slate-100 pt-28 pb-16">
-      <div className="max-w-3xl mx-auto bg-white rounded-3xl shadow-xl p-10">
+
+    <main className="min-h-screen bg-slate-100 pt-28 pb-16 px-5">
+
+      <div className="max-w-2xl mx-auto bg-white rounded-3xl shadow-lg p-8 md:p-10">
 
         <h1 className="text-4xl font-bold text-center text-slate-800">
           Form Pendaftaran
@@ -57,10 +71,18 @@ export default function Pendaftaran() {
           Silakan isi data diri untuk mendaftar program KODEIN.
         </p>
 
-        <form onSubmit={handleSubmit} className="space-y-6">
+        <form
+          onSubmit={handleSubmit}
+          className="space-y-6"
+        >
+
+          {/* NAMA */}
 
           <div>
-            <label className="font-semibold">Nama Lengkap</label>
+
+            <label className="font-semibold">
+              Nama Lengkap
+            </label>
 
             <input
               type="text"
@@ -71,10 +93,16 @@ export default function Pendaftaran() {
               className="w-full border rounded-xl p-3 mt-2"
               required
             />
+
           </div>
 
+          {/* EMAIL */}
+
           <div>
-            <label className="font-semibold">Email</label>
+
+            <label className="font-semibold">
+              Email
+            </label>
 
             <input
               type="email"
@@ -85,10 +113,16 @@ export default function Pendaftaran() {
               className="w-full border rounded-xl p-3 mt-2"
               required
             />
+
           </div>
 
+          {/* NOMOR HP */}
+
           <div>
-            <label className="font-semibold">Nomor HP</label>
+
+            <label className="font-semibold">
+              Nomor HP
+            </label>
 
             <input
               type="text"
@@ -99,10 +133,16 @@ export default function Pendaftaran() {
               className="w-full border rounded-xl p-3 mt-2"
               required
             />
+
           </div>
 
+          {/* PROGRAM */}
+
           <div>
-            <label className="font-semibold">Program</label>
+
+            <label className="font-semibold">
+              Program
+            </label>
 
             <select
               name="program"
@@ -111,12 +151,28 @@ export default function Pendaftaran() {
               className="w-full border rounded-xl p-3 mt-2"
               required
             >
-              <option value="">-- Pilih Program --</option>
-              <option value="Robotik">Robotik</option>
-              <option value="Web Development">Web Development</option>
-              <option value="UI/UX Design">UI/UX Design</option>
+
+              <option value="">
+                -- Pilih Program --
+              </option>
+
+              <option value="Programmer">
+                Programmer
+              </option>
+
+              <option value="IoT & Robotik">
+                IoT & Robotik
+              </option>
+
+              <option value="Multimedia">
+                Multimedia
+              </option>
+
             </select>
+
           </div>
+
+          {/* BUTTON */}
 
           <button
             type="submit"
@@ -128,6 +184,9 @@ export default function Pendaftaran() {
         </form>
 
       </div>
+
     </main>
+
   );
+
 }

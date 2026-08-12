@@ -4,68 +4,103 @@ import { useState } from "react";
 
 export default function Login() {
 
-  // Menyimpan input username
-  const [username, setUsername] = useState("");
+  // =====================================
+  // STATE
+  // =====================================
 
-  // Menyimpan input password
+  const [account, setAccount] = useState("");
   const [password, setPassword] = useState("");
 
-  // Fungsi ketika tombol login ditekan
-const handleLogin = async (e) => {
-  e.preventDefault();
+  // =====================================
+  // LOGIN
+  // =====================================
 
-  const response = await fetch("/api/login", {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify({
-      username,
-      password,
-    }),
-  });
+  const handleLogin = async (e) => {
 
-  const data = await response.json();
+    e.preventDefault();
 
+    const response = await fetch("/api/login", {
+
+      method: "POST",
+
+      headers: {
+        "Content-Type": "application/json",
+      },
+
+      body: JSON.stringify({
+
+        account,
+        password,
+
+      }),
+
+    });
+
+    const data = await response.json();
+
+    // =====================================
+    // LOGIN BERHASIL
+    // =====================================
+
+    if (data.success) {
+
+      localStorage.setItem("login", data.role);
+      // =====================================
+// Simpan email user
 // =====================================
-// Jika login berhasil
-// =====================================
-if (data.success) {
 
-    // ==========================
-    // Simpan status login
-    // ==========================
-    localStorage.setItem("login", "admin");
+if (data.role === "user") {
 
-    // Beri tahu Navbar bahwa status login berubah
-    window.dispatchEvent(new Event("login"));
-
-    alert("Login Berhasil");
-
-    window.location.href = "/dashboard";
+  localStorage.setItem("email", data.email);
 
 }
 
-// =====================================
-// Jika login gagal
-// =====================================
-else {
+      window.dispatchEvent(new Event("login"));
 
-  alert(data.message);
+      alert(data.message);
 
-}
-};
+      // ===============================
+      // ARAHKAN SESUAI ROLE
+      // ===============================
+
+      if (data.role === "admin") {
+
+        window.location.href = "/dashboard";
+
+      } else {
+
+        window.location.href = "/belajar";
+
+      }
+
+      return;
+
+    }
+
+    // =====================================
+    // LOGIN GAGAL
+    // =====================================
+
+    alert(data.message);
+
+  };
+
   return (
+
     <section className="min-h-screen bg-slate-100 flex items-center justify-center">
 
       <div className="bg-white shadow-xl rounded-2xl p-10 w-full max-w-md">
 
         <h1 className="text-3xl font-bold text-center text-slate-800">
-          Login Admin
+
+          Login
+
         </h1>
 
         <p className="text-center text-gray-500 mt-2">
-          Silakan login untuk masuk ke dashboard.
+
+          Login sebagai Admin atau User
+
         </p>
 
         <form
@@ -73,33 +108,43 @@ else {
           className="mt-8 space-y-5"
         >
 
-          {/* Username */}
+          {/* ===================================== */}
+          {/* EMAIL / USERNAME */}
+          {/* ===================================== */}
+
           <div>
 
             <label className="block mb-2 font-medium">
-              Username
+
+              Email / Username
+
             </label>
 
             <input
               type="text"
-              placeholder="Masukkan username"
-              value={username}
-              onChange={(e) => setUsername(e.target.value)}
+              placeholder="Masukkan Email atau Username"
+              value={account}
+              onChange={(e) => setAccount(e.target.value)}
               className="w-full border rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-orange-500"
             />
 
           </div>
 
-          {/* Password */}
+          {/* ===================================== */}
+          {/* PASSWORD */}
+          {/* ===================================== */}
+
           <div>
 
             <label className="block mb-2 font-medium">
+
               Password
+
             </label>
 
             <input
               type="password"
-              placeholder="Masukkan password"
+              placeholder="Masukkan Password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               className="w-full border rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-orange-500"
@@ -107,12 +152,17 @@ else {
 
           </div>
 
-          {/* Tombol Login */}
+          {/* ===================================== */}
+          {/* BUTTON LOGIN */}
+          {/* ===================================== */}
+
           <button
             type="submit"
             className="w-full bg-orange-500 hover:bg-orange-600 text-white py-3 rounded-lg font-semibold duration-300"
           >
+
             Login
+
           </button>
 
         </form>
@@ -120,5 +170,7 @@ else {
       </div>
 
     </section>
+
   );
+
 }

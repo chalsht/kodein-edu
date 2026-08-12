@@ -2,35 +2,96 @@ import { NextResponse } from "next/server";
 import db from "@/lib/db";
 
 export async function POST(request) {
-  try {
-    const { username, password } = await request.json();
 
-    const [rows] = await db.execute(
+  try {
+
+    // =====================================
+    // AMBIL DATA LOGIN
+    // =====================================
+
+    const { account, password } = await request.json();
+
+    // =====================================
+    // LOGIN ADMIN
+    // =====================================
+
+    const [admin] = await db.execute(
+
       "SELECT * FROM admin WHERE username = ? AND password = ?",
-      [username, password]
+
+      [account, password]
+
     );
 
-    if (rows.length > 0) {
+    if (admin.length > 0) {
+
       return NextResponse.json({
+
         success: true,
-        message: "Login berhasil",
+        role: "admin",
+        message: "Login Admin Berhasil",
+
       });
+
     }
 
+    // =====================================
+    // LOGIN USER
+    // =====================================
+
+    const [user] = await db.execute(
+
+      "SELECT * FROM users WHERE email = ? AND password = ? AND status='Aktif'",
+
+      [account, password]
+
+    );
+
+    if (user.length > 0) {
+
+      return NextResponse.json({
+
+  success: true,
+  role: "user",
+  message: "Login User Berhasil",
+  email: user[0].email
+
+});
+
+    }
+
+    // =====================================
+    // LOGIN GAGAL
+    // =====================================
+
     return NextResponse.json({
+
       success: false,
-      message: "Username atau password salah",
+      message: "Email / Username atau Password salah",
+
     });
 
   } catch (error) {
-    console.error(error);
+
+    console.log(error);
 
     return NextResponse.json(
+
       {
+
         success: false,
-        message: "Terjadi kesalahan pada server",
+        message: "Server Error",
+
       },
-      { status: 500 }
+
+      {
+
+        status: 500,
+
+      }
+
     );
+
   }
+
 }
