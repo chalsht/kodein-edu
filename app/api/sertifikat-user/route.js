@@ -1,30 +1,37 @@
 import db from "@/lib/db";
 import { NextResponse } from "next/server";
 
-export async function GET(request){
+export async function GET(request) {
+  try {
+    const { searchParams } = new URL(request.url);
+    const email = searchParams.get("email");
 
-const {searchParams}=new URL(request.url);
+    const [rows] = await db.execute(
+      `SELECT
+        sertifikat.id,
+        sertifikat.nomor_sertifikat,
+        sertifikat.tanggal,
+        sertifikat.status,
+        sertifikat.file_sertifikat,
+        users.nama,
+        users.email,
+        users.program
+      FROM sertifikat
+      JOIN users
+        ON sertifikat.user_id = users.id
+      WHERE users.email = ?
+      ORDER BY sertifikat.id DESC`,
+      [email]
+    );
 
-const email=searchParams.get("email");
+    return NextResponse.json(rows);
 
-const [rows]=await db.execute(
+  } catch (error) {
+    console.log(error);
 
-`SELECT
-
-sertifikat.*
-
-FROM sertifikat
-
-JOIN users
-
-ON sertifikat.user_id=users.id
-
-WHERE users.email=?`,
-
-[email]
-
-);
-
-return NextResponse.json(rows);
-
+    return NextResponse.json({
+      success: false,
+      message: "Server Error",
+    });
+  }
 }
