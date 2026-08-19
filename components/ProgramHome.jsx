@@ -2,15 +2,14 @@
 
 import { useEffect, useState } from "react";
 import Link from "next/link";
-import Image from "next/image";
-import { motion } from "framer-motion";
 
 export default function ProgramHome() {
   const [program, setProgram] = useState([]);
 
-  // ==========================================
-  // AMBIL DATA PROGRAM DARI DATABASE
-  // ==========================================
+  useEffect(() => {
+    getProgram();
+  }, []);
+
   async function getProgram() {
     try {
       const res = await fetch("/api/program");
@@ -23,21 +22,12 @@ export default function ProgramHome() {
 
       setProgram(Array.isArray(data) ? data : []);
     } catch (error) {
-      console.error("Error mengambil program:", error);
+      console.error("Gagal mengambil program:", error);
       setProgram([]);
     }
   }
 
-  // ==========================================
-  // LOAD DATA
-  // ==========================================
-  useEffect(() => {
-    getProgram();
-  }, []);
-
-  // ==========================================
-  // PISAHKAN BERDASARKAN KATEGORI
-  // ==========================================
+  // Filter berdasarkan kategori
   const programUnggulan = program.filter(
     (item) => item.kategori === "Program Unggulan"
   );
@@ -46,224 +36,167 @@ export default function ProgramHome() {
     (item) => item.kategori === "Bimbel Akademik"
   );
 
-  // ==========================================
-  // HOMEPAGE HANYA MENAMPILKAN 3
-  // ==========================================
+  // Homepage hanya menampilkan 3
   const unggulanTampil = programUnggulan.slice(0, 3);
-
   const bimbelTampil = bimbelAkademik.slice(0, 3);
 
   return (
-    <section
-      id="program"
-      className="py-28 bg-slate-50"
-    >
-      <div className="max-w-7xl mx-auto px-8">
+    <section id="program" className="bg-white py-20">
+      <div className="max-w-6xl mx-auto px-6">
 
         {/* ==========================================
-            JUDUL UTAMA
+            PROGRAM UNGGULAN
         ========================================== */}
-        <div className="text-center mb-20">
 
-          <span className="bg-orange-100 text-orange-600 px-4 py-2 rounded-full font-semibold">
-            Program Kami
-          </span>
+        <h2 className="text-4xl md:text-5xl font-bold text-black text-center mb-12">
+          Program Unggulan
+        </h2>
 
-          <h2 className="text-5xl font-black text-slate-800 mt-6">
-            Pilih Program{" "}
-            <span className="text-sky-500">
-              Terbaik Untukmu
-            </span>
-          </h2>
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
 
-          <p className="text-gray-500 mt-5 max-w-2xl mx-auto">
-            Temukan program pembelajaran yang sesuai dengan
-            kebutuhan dan minatmu.
-          </p>
+          {unggulanTampil.map((item) => (
+            <div
+              key={item.id}
+              className="
+                bg-white
+                border
+                border-gray-200
+                rounded-2xl
+                overflow-hidden
+                transition-all
+                duration-300
+                hover:-translate-y-1
+                hover:shadow-lg
+              "
+            >
+
+              {/* GAMBAR */}
+              <div className="p-2 pb-0">
+                <img
+                  src={`/images/${item.gambar}`}
+                  alt={item.nama_program}
+                  className="
+                    w-full
+                    h-[180px]
+                    object-cover
+                    rounded-xl
+                  "
+                />
+              </div>
+
+              {/* ISI CARD */}
+              <div className="px-5 pt-5 pb-6">
+
+                <h3 className="text-xl font-bold text-gray-800 mb-2">
+                  {item.nama_program}
+                </h3>
+
+                <p className="text-sm leading-6 text-gray-500 line-clamp-3">
+                  {item.deskripsi}
+                </p>
+
+              </div>
+
+            </div>
+          ))}
 
         </div>
 
 
-        {/* ==================================================
-            PROGRAM UNGGULAN
-        ================================================== */}
-        <section>
-
-          <div className="flex items-center justify-between mb-10">
-
-            <div>
-              <h2 className="text-4xl font-bold text-slate-800">
-                Program Unggulan
-              </h2>
-
-              <p className="text-gray-500 mt-2">
-                Program pilihan terbaik untuk mengembangkan kemampuanmu.
-              </p>
-            </div>
-
-          </div>
-
-
-          {/* CARD PROGRAM UNGGULAN */}
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-
-            {unggulanTampil.length > 0 ? (
-
-              unggulanTampil.map((item) => (
-
-                <motion.div
-                  key={item.id}
-                  whileHover={{ y: -8 }}
-                  transition={{ duration: 0.2 }}
-                  className="bg-white rounded-3xl shadow-lg overflow-hidden"
-                >
-
-                  {/* GAMBAR */}
-                  <Image
-                    src={`/images/${item.gambar}`}
-                    alt={item.nama_program}
-                    width={500}
-                    height={300}
-                    className="w-full h-56 object-cover"
-                  />
-
-                  {/* ISI CARD */}
-                  <div className="p-6">
-
-                    <h3 className="text-2xl font-bold text-slate-800">
-                      {item.nama_program}
-                    </h3>
-
-                    <p className="text-gray-500 mt-3 line-clamp-3">
-                      {item.deskripsi}
-                    </p>
-
-                    <Link
-                      href={`/program/${item.id}`}
-                      className="inline-block mt-6 bg-orange-500 hover:bg-orange-600 text-white px-6 py-3 rounded-xl transition"
-                    >
-                      Lihat Detail
-                    </Link>
-
-                  </div>
-
-                </motion.div>
-
-              ))
-
-            ) : (
-
-              <p className="text-gray-500">
-                Belum ada Program Unggulan.
-              </p>
-
-            )}
-
-          </div>
-
-        </section>
-
-
-        {/* ==================================================
+        {/* ==========================================
             BIMBEL AKADEMIK
-        ================================================== */}
-        <section className="mt-24">
+        ========================================== */}
 
-          <div className="flex items-center justify-between mb-10">
+        <div className="mt-24">
 
-            <div>
+          <h2 className="text-4xl md:text-5xl font-bold text-black text-center mb-12">
+            Bimbel Akademik
+          </h2>
 
-              <h2 className="text-4xl font-bold text-slate-800">
-                Bimbel Akademik
-              </h2>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
 
-              <p className="text-gray-500 mt-2">
-                Tingkatkan kemampuan akademikmu bersama kami.
-              </p>
+            {bimbelTampil.map((item) => (
+              <div
+                key={item.id}
+                className="
+                  bg-white
+                  border
+                  border-gray-200
+                  rounded-2xl
+                  overflow-hidden
+                  transition-all
+                  duration-300
+                  hover:-translate-y-1
+                  hover:shadow-lg
+                "
+              >
 
-            </div>
-
-          </div>
-
-
-          {/* CARD BIMBEL */}
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-
-            {bimbelTampil.length > 0 ? (
-
-              bimbelTampil.map((item) => (
-
-                <motion.div
-                  key={item.id}
-                  whileHover={{ y: -8 }}
-                  transition={{ duration: 0.2 }}
-                  className="bg-white rounded-3xl shadow-lg overflow-hidden"
-                >
-
-                  {/* GAMBAR */}
-                  <Image
+                {/* GAMBAR */}
+                <div className="p-2 pb-0">
+                  <img
                     src={`/images/${item.gambar}`}
                     alt={item.nama_program}
-                    width={500}
-                    height={300}
-                    className="w-full h-56 object-cover"
+                    className="
+                      w-full
+                      h-[180px]
+                      object-cover
+                      rounded-xl
+                    "
                   />
+                </div>
 
-                  {/* ISI CARD */}
-                  <div className="p-6">
+                {/* ISI CARD */}
+                <div className="px-5 pt-5 pb-6">
 
-                    <h3 className="text-2xl font-bold text-slate-800">
-                      {item.nama_program}
-                    </h3>
+                  <h3 className="text-xl font-bold text-gray-800 mb-2">
+                    {item.nama_program}
+                  </h3>
 
-                    <p className="text-gray-500 mt-3 line-clamp-3">
-                      {item.deskripsi}
-                    </p>
+                  <p className="text-sm leading-6 text-gray-500 line-clamp-3">
+                    {item.deskripsi}
+                  </p>
 
-                    <Link
-                      href={`/program/${item.id}`}
-                      className="inline-block mt-6 bg-sky-500 hover:bg-sky-600 text-white px-6 py-3 rounded-xl transition"
-                    >
-                      Lihat Detail
-                    </Link>
+                </div>
 
-                  </div>
-
-                </motion.div>
-
-              ))
-
-            ) : (
-
-              <p className="text-gray-500">
-                Belum ada Bimbel Akademik.
-              </p>
-
-            )}
+              </div>
+            ))}
 
           </div>
 
 
-          {/* ==================================================
-              TOMBOL LIHAT LEBIH BANYAK
-          ================================================== */}
+          {/* ==========================================
+              LIHAT LEBIH BANYAK
+          ========================================== */}
 
           {bimbelAkademik.length > 3 && (
-
             <div className="flex justify-center mt-12">
 
               <Link
                 href="/program"
-                className="inline-flex items-center justify-center px-8 py-4 bg-white border border-slate-200 text-slate-700 font-semibold rounded-xl shadow-sm hover:bg-slate-100 hover:shadow-md transition"
+                className="
+                  min-w-[150px]
+                  text-center
+                  px-6
+                  py-3
+                  bg-white
+                  border
+                  border-gray-200
+                  rounded-xl
+                  text-gray-500
+                  text-sm
+                  font-medium
+                  hover:bg-gray-50
+                  hover:border-gray-300
+                  transition
+                "
               >
                 Lihat lebih banyak
               </Link>
 
             </div>
-
           )}
 
-        </section>
+        </div>
 
       </div>
     </section>
