@@ -32,9 +32,7 @@ export default function SertifikatAdmin() {
       });
 
       const hasil = await res.json();
-
       alert(hasil.message);
-
     } catch (error) {
       console.error(error);
       alert("Gagal mengupload sertifikat");
@@ -45,50 +43,38 @@ export default function SertifikatAdmin() {
 
   return (
     <div className="p-10">
-
       <h1 className="mb-8 text-4xl font-bold">
         Sertifikat Peserta
       </h1>
 
       <table className="w-full overflow-hidden rounded-xl bg-white shadow">
-
         <thead className="bg-slate-800 text-white">
           <tr>
             <th className="p-3">No</th>
             <th>Nama</th>
             <th>Email</th>
-            <th>Nilai</th>
+            <th>Status</th>
             <th>Aksi</th>
           </tr>
         </thead>
 
         <tbody>
           {peserta.map((item, index) => (
-            <tr
-              key={item.email}
-              className="border-b"
-            >
+            <tr key={item.email} className="border-b">
+              <td className="p-3">{index + 1}</td>
 
-              <td className="p-3">
-                {index + 1}
-              </td>
+              <td>{item.nama}</td>
+
+              <td>{item.email}</td>
 
               <td>
-                {item.nama}
-              </td>
-
-              <td>
-                {item.email}
-              </td>
-
-              <td>
-                {item.rata_rata}
+                <span className="font-semibold text-green-600">
+                  ✓ Tuntas
+                </span>
               </td>
 
               <td className="p-3">
-
                 <label className="cursor-pointer rounded bg-green-600 px-4 py-2 text-white hover:bg-green-700">
-
                   {uploading === item.email
                     ? "Uploading..."
                     : "Upload"}
@@ -105,17 +91,12 @@ export default function SertifikatAdmin() {
                       )
                     }
                   />
-
                 </label>
-
               </td>
-
             </tr>
           ))}
         </tbody>
-
       </table>
-
     </div>
   );
 }
