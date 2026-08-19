@@ -1,6 +1,5 @@
 import Hero from "@/components/Hero";
 import Tentang from "@/components/Tentang";
-import WhyChooseUs from "@/components/WhyChooseUs";
 import ProgramHome from "@/components/ProgramHome";
 import Contact from "@/components/Contact";
 
@@ -11,8 +10,6 @@ export default function Home() {
       <Hero />
 
       <Tentang />
-
-      <WhyChooseUs />
 
       <ProgramHome />
 
