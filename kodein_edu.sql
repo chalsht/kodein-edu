@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: Aug 12, 2026 at 05:09 AM
+-- Generation Time: Aug 19, 2026 at 03:51 AM
 -- Server version: 8.0.30
 -- PHP Version: 8.1.10
 
@@ -220,8 +220,19 @@ CREATE TABLE `sertifikat` (
   `user_id` int DEFAULT NULL,
   `nomor_sertifikat` varchar(100) COLLATE utf8mb4_general_ci DEFAULT NULL,
   `tanggal` date DEFAULT NULL,
-  `status` enum('Belum','Terbit') COLLATE utf8mb4_general_ci DEFAULT 'Belum'
+  `status` enum('Belum','Terbit') COLLATE utf8mb4_general_ci DEFAULT 'Belum',
+  `file_sertifikat` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `sertifikat`
+--
+
+INSERT INTO `sertifikat` (`id`, `user_id`, `nomor_sertifikat`, `tanggal`, `status`, `file_sertifikat`) VALUES
+(1, 2, 'KDEC-1786673746888', '2026-08-14', 'Terbit', NULL),
+(2, 2, 'KDEC-1786673759394', '2026-08-14', 'Terbit', NULL),
+(3, 2, 'KDEC-1786674609752', '2026-08-14', 'Terbit', '/sertifikat/KDEC-1786674609752-2.jpg'),
+(4, 2, 'KDEC-1787023470716', '2026-08-18', 'Terbit', '/sertifikat/KDEC-1787023470716-2.png');
 
 -- --------------------------------------------------------
 
@@ -373,7 +384,7 @@ ALTER TABLE `quiz`
 -- AUTO_INCREMENT for table `sertifikat`
 --
 ALTER TABLE `sertifikat`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `users`
