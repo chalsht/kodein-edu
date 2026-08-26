@@ -1,20 +1,9 @@
-// ==========================================
-// API EDIT & HAPUS QUIZ
-// ==========================================
-
 import db from "@/lib/db";
 import { NextResponse } from "next/server";
 
-// ==========================================
-// UPDATE QUIZ
-// ==========================================
-
 export async function PUT(request, { params }) {
-
   try {
-
-    const { id } = params;
-
+    const { id } = await params;
     const body = await request.json();
 
     const {
@@ -27,19 +16,26 @@ export async function PUT(request, { params }) {
       jawaban_benar,
     } = body;
 
-    await db.execute(
+    if (!id) {
+      return NextResponse.json(
+        {
+          success: false,
+          message: "ID quiz tidak ditemukan",
+        },
+        { status: 400 }
+      );
+    }
 
+    const [result] = await db.execute(
       `UPDATE quiz
-      SET
-      materi_id=?,
-      pertanyaan=?,
-      opsi_a=?,
-      opsi_b=?,
-      opsi_c=?,
-      opsi_d=?,
-      jawaban_benar=?
-      WHERE id=?`,
-
+       SET materi_id = ?,
+           pertanyaan = ?,
+           opsi_a = ?,
+           opsi_b = ?,
+           opsi_c = ?,
+           opsi_d = ?,
+           jawaban_benar = ?
+       WHERE id = ?`,
       [
         materi_id,
         pertanyaan,
@@ -50,69 +46,31 @@ export async function PUT(request, { params }) {
         jawaban_benar,
         id,
       ]
-
     );
 
-    return NextResponse.json({
+    if (result.affectedRows === 0) {
+      return NextResponse.json(
+        {
+          success: false,
+          message: "Quiz tidak ditemukan",
+        },
+        { status: 404 }
+      );
+    }
 
+    return NextResponse.json({
       success: true,
       message: "Quiz berhasil diubah",
-
     });
-
   } catch (error) {
+    console.error("UPDATE QUIZ ERROR:", error);
 
-    console.log(error);
-
-    return NextResponse.json({
-
-      success: false,
-      message: "Server Error",
-
-    });
-
-  }
-
-}
-
-// ==========================================
-// HAPUS QUIZ
-// ==========================================
-
-export async function DELETE(request, { params }) {
-
-  try {
-
-    const { id } = params;
-
-    await db.execute(
-
-      "DELETE FROM quiz WHERE id=?",
-
-      [id]
-
+    return NextResponse.json(
+      {
+        success: false,
+        message: error.message || "Server Error",
+      },
+      { status: 500 }
     );
-
-    return NextResponse.json({
-
-      success: true,
-      message: "Quiz berhasil dihapus",
-
-    });
-
   }
-
-  catch (error) {
-
-    console.log(error);
-
-    return NextResponse.json({
-
-      success: false,
-      message: "Server Error",
-
-    });
-
-  }
-
 }
