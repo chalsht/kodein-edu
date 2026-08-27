@@ -3,345 +3,168 @@
 import Image from "next/image";
 import { motion } from "framer-motion";
 import {
-  FaCode,
-  FaLightbulb,
   FaGraduationCap,
-  FaCertificate,
-  FaChartLine,
+  FaBookOpen,
+  FaRocket,
+  FaTrophy,
+  FaEye,
+  FaBullseye,
+  FaCheckCircle,
 } from "react-icons/fa";
 
 export default function Tentang() {
   const keunggulan = [
-    {
-      icon: FaGraduationCap,
-      title: "Mentor Profesional",
-      desc: "Dibimbing oleh mentor berpengalaman di bidang teknologi",
-      color: "blue",
-    },
-    {
-      icon: FaCode,
-      title: "Belajar Praktis",
-      desc: "Materi berbasis project dan studi kasus nyata",
-      color: "orange",
-    },
-    {
-      icon: FaChartLine,
-      title: "Perkembangan Terukur",
-      desc: "Evaluasi rutin untuk memantau perkembanganmu",
-      color: "blue",
-    },
-    {
-      icon: FaCertificate,
-      title: "Sertifikat Resmi",
-      desc: "Dapatkan sertifikat setelah menyelesaikan program",
-      color: "orange",
-    },
+    [FaGraduationCap, "Pembelajaran", "Berkualitas", "blue"],
+    [FaBookOpen, "Metode","Interaktif", "orange"],
+    [FaRocket, "Kurikulum", "Up-to-date", "red"],
+    [FaTrophy, "Sertifikat untuk", "Setiap Prestasi", "blue"],
+  ];
+
+  const misi = [
+    "Menyediakan program belajar berkualitas dan terjangkau",
+    "Menggunakan metode belajar yang interaktif",
+    "Mendorong siswa untuk berinovasi dan berkarya",
+    "Membekali siswa dengan keterampilan digital yang relevan",
   ];
 
   return (
-    <section
-      id="tentang"
-      className="relative bg-white overflow-hidden py-20 lg:py-24"
-    >
+    <section className="bg-white px-4 sm:px-6 py-6 lg:py-10">
+      <div className="max-w-[1480px] mx-auto rounded-[26px] bg-white shadow-[0_8px_35px_rgba(15,23,42,.07)] overflow-hidden">
+        
+        <div className="grid lg:grid-cols-[.9fr_1.15fr_.8fr] gap-8 items-center px-6 lg:px-12 py-10">
 
-      {/* =========================
-          BACKGROUND DECORATION
-      ========================= */}
-
-      <div className="absolute top-0 right-0 w-[380px] h-[300px] bg-sky-50 rounded-bl-[180px] -z-0" />
-
-      <motion.div
-        animate={{
-          y: [0, -15, 0],
-          rotate: [0, 5, 0],
-        }}
-        transition={{
-          duration: 6,
-          repeat: Infinity,
-          ease: "easeInOut",
-        }}
-        className="absolute left-[-100px] top-40 w-64 h-64 rounded-full bg-orange-100 blur-3xl opacity-60"
-      />
-
-      <div className="max-w-7xl mx-auto px-5 lg:px-8 relative z-10">
-
-        {/* =========================
-            MAIN CONTENT
-        ========================= */}
-
-        <div className="grid lg:grid-cols-2 gap-12 lg:gap-20 items-center">
-
-          {/* =========================
-              LEFT - TEXT
-          ========================= */}
-
+          {/* TENTANG */}
           <motion.div
-            initial={{ opacity: 0, x: -60 }}
+            initial={{ opacity: 0, x: -30 }}
             whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true, amount: 0.2 }}
-            transition={{ duration: 0.8 }}
+            viewport={{ once: true }}
           >
+            <span className="bg-blue-50 text-blue-700 rounded-full px-3 py-1 text-xs font-bold">
+              TENTANG KAMI
+            </span>
 
-            {/* TITLE */}
-
-            <h2 className="mt-6 text-4xl md:text-5xl lg:text-[56px] font-black leading-[1.08] text-slate-800">
-              Belajar Teknologi
+            <h1 className="mt-4 text-4xl lg:text-[40px] font-extrabold leading-[1.1] text-slate-900">
+              Tentang
               <br />
+              <span className="text-blue-600">Kodein Edu Center</span>
+            </h1>
 
-              <span className="text-orange-500">
-                Dengan Cara
-              </span>
-
-              <br />
-
-              <span className="text-orange-500">
-                Menyenangkan
-              </span>
-            </h2>
-
-            {/* DESCRIPTION */}
-
-            <p className="mt-7 text-gray-600 text-base lg:text-[17px] leading-8 max-w-xl">
-              Kodein Edu Center merupakan lembaga pelatihan teknologi
-              yang menyediakan berbagai program pembelajaran mulai dari
-              coding, robotik, desain digital hingga pengembangan website.
+            <p className="mt-5 max-w-[400px] text-sm leading-6 text-slate-600">
+              Kodein Edu Center hadir sebagai platform pembelajaran digital
+              yang bertujuan membantu siapa saja untuk menguasai teknologi,
+              mengembangkan keterampilan, dan siap menghadapi masa depan.
             </p>
 
-            <p className="mt-2 text-gray-600 text-base lg:text-[17px] leading-8 max-w-xl">
-              Kami percaya bahwa belajar teknologi harus menyenangkan,
-              interaktif, dan menghasilkan karya nyata.
-            </p>
+            {/* KEUNGGULAN */}
+            <div className="mt-6 rounded-2xl bg-white border border-slate-100 shadow-[0_5px_22px_rgba(15,23,42,.06)]">
+              <div className="grid grid-cols-4 h-[145px]">
+                {keunggulan.map(([Icon, title, desc, color], i) => (
+                  <div
+                    key={title}
+                    className={`flex flex-col items-center justify-center text-center px-2 ${
+                      i ? "border-l border-slate-200" : ""
+                    }`}
+                  >
+                    <div
+                      className={`w-10 h-10 rounded-lg flex items-center justify-center ${
+                        color === "blue"
+                          ? "bg-blue-600"
+                          : color === "orange"
+                          ? "bg-orange-500"
+                          : "bg-red-500"
+                      }`}
+                    >
+                      <Icon className="text-white" />
+                    </div>
 
+                    <p className="mt-3 text-[9px] font-bold leading-4 text-slate-700">
+                      {title}
+                      <br />
+                      {desc}
+                    </p>
+                  </div>
+                ))}
+              </div>
+            </div>
           </motion.div>
 
-
-          {/* =========================
-              RIGHT - IMAGE
-          ========================= */}
-
+          {/* VISI MISI */}
           <motion.div
-            initial={{ opacity: 0, x: 60 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true, amount: 0.2 }}
-            transition={{ duration: 0.8 }}
-            className="relative"
+            initial={{ opacity: 0, y: 25 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
           >
+            <h2 className="text-2xl font-extrabold text-slate-900">
+              Visi &amp; Misi
+            </h2>
 
-            {/* BLUE SHAPE */}
+            <div className="mt-2 mb-4 w-10 h-[3px] bg-orange-500 rounded-full" />
 
-            <motion.div
-              animate={{
-                y: [0, -10, 0],
-              }}
-              transition={{
-                duration: 5,
-                repeat: Infinity,
-                ease: "easeInOut",
-              }}
-              className="absolute -right-20 -top-10 w-72 h-56 bg-blue-600 rounded-[40%] -z-10"
-            />
+            <div className="grid sm:grid-cols-[.75fr_1.25fr] gap-3">
+              
+              {/* VISI */}
+              <div className="rounded-2xl border border-blue-100 bg-blue-50/60 p-5">
+                <div className="flex items-center gap-3 mb-4">
+                  <div className="w-10 h-10 rounded-full bg-blue-600 flex items-center justify-center">
+                    <FaEye className="text-white" />
+                  </div>
+                  <h3 className="font-extrabold text-blue-700">VISI</h3>
+                </div>
 
-            {/* ORANGE CIRCLE */}
+                <p className="text-[10px] leading-5 text-slate-700">
+                  Menjadi lembaga pendidikan digital terdepan yang mencetak
+                  generasi kreatif, inovatif, dan siap menghadapi tantangan
+                  dunia teknologi.
+                </p>
+              </div>
 
-            <motion.div
-              animate={{
-                scale: [1, 1.08, 1],
-              }}
-              transition={{
-                duration: 4,
-                repeat: Infinity,
-                ease: "easeInOut",
-              }}
-              className="absolute -left-12 bottom-0 w-48 h-48 bg-orange-500 rounded-full -z-10"
-            />
+              {/* MISI */}
+              <div className="rounded-2xl border border-orange-100 bg-orange-50/50 p-5">
+                <div className="flex items-center gap-3 mb-4">
+                  <div className="w-10 h-10 rounded-full bg-orange-500 flex items-center justify-center">
+                    <FaBullseye className="text-white" />
+                  </div>
+                  <h3 className="font-extrabold text-orange-600">MISI</h3>
+                </div>
 
-            {/* DOTS */}
-
-            <div className="absolute -left-10 top-24 grid grid-cols-4 gap-2">
-              {Array.from({ length: 20 }).map((_, i) => (
-                <motion.span
-                  key={i}
-                  animate={{
-                    opacity: [0.25, 1, 0.25],
-                  }}
-                  transition={{
-                    duration: 2,
-                    delay: i * 0.08,
-                    repeat: Infinity,
-                  }}
-                  className="w-1.5 h-1.5 bg-sky-400 rounded-full"
-                />
-              ))}
+                <div className="space-y-3">
+                  {misi.map((item) => (
+                    <div key={item} className="flex gap-2">
+                      <FaCheckCircle className="mt-1 flex-shrink-0 text-orange-500 text-[10px]" />
+                      <p className="text-[10px] leading-4 text-slate-700">
+                        {item}
+                      </p>
+                    </div>
+                  ))}
+                </div>
+              </div>
             </div>
+          </motion.div>
 
-            {/* IMAGE */}
-
-            <motion.div
-              animate={{
-                y: [0, -8, 0],
-                rotate: [0, 1, 0],
-              }}
-              transition={{
-                duration: 6,
-                repeat: Infinity,
-                ease: "easeInOut",
-              }}
-              className="relative z-10"
-            >
-              <Image
-                src="/images/tentang.jpeg"
-                alt="Tentang Kodein Edu Center"
-                width={700}
-                height={520}
-                priority
-                className="w-full h-[350px] lg:h-[450px] object-cover rounded-[30px] shadow-2xl"
-              />
-            </motion.div>
-
-
-            {/* =========================
-                BADGE BELAJAR
-            ========================= */}
-
-            <motion.div
-              animate={{
-                y: [0, -8, 0],
-              }}
-              transition={{
-                duration: 3,
-                repeat: Infinity,
-                ease: "easeInOut",
-              }}
-              className="absolute z-20 -top-5 left-[-20px] lg:left-[-30px] bg-white rounded-2xl shadow-xl px-4 py-4 flex items-center gap-3"
-            >
-
-              <div className="w-12 h-12 rounded-full bg-blue-50 flex items-center justify-center">
-                <FaGraduationCap className="text-blue-600 text-xl" />
-              </div>
-
-              <div>
-                <p className="font-bold text-slate-800 text-sm">
-                  Belajar Interaktif
-                </p>
-
-                <p className="text-xs text-gray-500 mt-1">
-                  Materi praktis dan mudah dipahami
-                </p>
-              </div>
-
-            </motion.div>
-
-
-            {/* =========================
-                BADGE PROJECT
-            ========================= */}
-
-            <motion.div
-              animate={{
-                y: [0, 8, 0],
-              }}
-              transition={{
-                duration: 3.5,
-                repeat: Infinity,
-                ease: "easeInOut",
-              }}
-              className="absolute z-20 -bottom-6 right-[-10px] lg:right-[-30px] bg-white rounded-2xl shadow-xl px-4 py-4 flex items-center gap-3"
-            >
-
-              <div className="w-12 h-12 rounded-full bg-orange-50 flex items-center justify-center">
-                <FaLightbulb className="text-orange-500 text-xl" />
-              </div>
-
-              <div>
-                <p className="font-bold text-slate-800 text-sm">
-                  Project Nyata
-                </p>
-
-                <p className="text-xs text-gray-500 mt-1">
-                  Buat karya dan bangun portfolio terbaikmu
-                </p>
-              </div>
-
-            </motion.div>
-
+          {/* FOTO */}
+          <motion.div
+            initial={{ opacity: 0, x: 30 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true }}
+            className="flex justify-center"
+          >
+            <Image
+              src="/images/about.png"
+              alt="Kodein Edu Center"
+              width={700}
+              height={520}
+              priority
+              className="
+                w-full
+                max-w-[420px]
+                h-auto
+                object-contain
+                mix-blend-multiply
+              "
+            />
           </motion.div>
 
         </div>
-
-
-        {/* =========================
-            KEUNGGULAN
-        ========================= */}
-
-        <motion.div
-          initial={{ opacity: 0, y: 50 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, amount: 0.2 }}
-          transition={{ duration: 0.8 }}
-          className="mt-24 bg-white rounded-[28px] shadow-[0_10px_40px_rgba(0,0,0,0.08)] border border-gray-100 px-6 lg:px-8 py-8"
-        >
-
-          <div className="grid sm:grid-cols-2 lg:grid-cols-4">
-
-            {keunggulan.map((item, index) => {
-              const Icon = item.icon;
-
-              return (
-                <motion.div
-                  key={index}
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{
-                    delay: index * 0.15,
-                  }}
-                  whileHover={{
-                    y: -5,
-                  }}
-                  className={`flex items-center gap-4 px-5 py-4
-                    ${
-                      index !== 0
-                        ? "lg:border-l border-gray-200"
-                        : ""
-                    }
-                  `}
-                >
-
-                  <div
-                    className={`min-w-14 h-14 rounded-full flex items-center justify-center
-                    ${
-                      item.color === "blue"
-                        ? "bg-blue-50"
-                        : "bg-orange-50"
-                    }`}
-                  >
-                    <Icon
-                      className={`text-xl ${
-                        item.color === "blue"
-                          ? "text-blue-600"
-                          : "text-orange-500"
-                      }`}
-                    />
-                  </div>
-
-                  <div>
-                    <h3 className="font-bold text-slate-800 text-sm">
-                      {item.title}
-                    </h3>
-
-                    <p className="text-xs text-gray-500 leading-5 mt-1">
-                      {item.desc}
-                    </p>
-                  </div>
-
-                </motion.div>
-              );
-            })}
-
-          </div>
-
-        </motion.div>
-
       </div>
     </section>
   );
