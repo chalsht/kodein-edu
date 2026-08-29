@@ -45,7 +45,6 @@ export default function Contact() {
     <main id="kontak" className="min-h-screen bg-white overflow-hidden">
       <section className="px-5 pt-28 pb-12 sm:px-8 lg:px-12">
 
-        {/* JUDUL */}
         <motion.div
           initial={{ opacity: 0, y: 25 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -65,7 +64,6 @@ export default function Contact() {
           </p>
         </motion.div>
 
-        {/* FORM + KONTAK */}
         <div className="grid md:grid-cols-2 gap-8 max-w-6xl mx-auto">
 
           <motion.form
@@ -105,18 +103,9 @@ export default function Contact() {
               />
             </div>
 
-            <input
-              placeholder="No. Telepon"
-              value={form.subjek}
-              onChange={(e) =>
-                setForm({ ...form, subjek: e.target.value })
-              }
-              className="w-full mt-4 p-3 border rounded-lg outline-none focus:border-blue-500"
-            />
-
             <textarea
               required
-              rows="4"
+              rows="5"
               placeholder="Tulis pesan Anda di sini..."
               value={form.pesan}
               onChange={(e) =>
@@ -131,7 +120,6 @@ export default function Contact() {
             </button>
           </motion.form>
 
-          {/* INFORMASI */}
           <motion.div
             initial={{ opacity: 0, x: 30 }}
             whileInView={{ opacity: 1, x: 0 }}
@@ -156,16 +144,13 @@ export default function Contact() {
 
                 <div>
                   <b className="text-slate-900">{title}</b>
-                  <p className="text-sm text-slate-600 mt-1">
-                    {text}
-                  </p>
+                  <p className="text-sm text-slate-600 mt-1">{text}</p>
                 </div>
               </motion.div>
             ))}
           </motion.div>
         </div>
 
-        {/* BANNER */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
