@@ -34,7 +34,10 @@ export default function ProgramHome() {
   );
 
   return (
-    <main className="min-h-screen bg-white pt-28 pb-20 overflow-hidden">
+    <main
+      id="program"
+      className="min-h-screen bg-white pt-28 pb-20 overflow-hidden"
+    >
 
       {/* HERO */}
       <motion.section
@@ -64,6 +67,7 @@ export default function ProgramHome() {
           untuk membekali kamu dengan skill dan pengetahuan terbaik.
         </p>
 
+        {/* ANIMASI DEKORASI */}
         <motion.div
           animate={{ y: [0, -10, 0], rotate: [45, 50, 45] }}
           transition={{ duration: 4, repeat: Infinity }}
@@ -76,7 +80,6 @@ export default function ProgramHome() {
           className="absolute right-0 bottom-0 w-10 h-10 bg-orange-400 opacity-20"
         />
       </motion.section>
-
 
       {/* PROGRAM UNGGULAN */}
       <Title
@@ -92,7 +95,6 @@ export default function ProgramHome() {
         ))}
       </div>
 
-
       {/* BIMBEL AKADEMIK */}
       <Title
         title="BIMBEL"
@@ -103,10 +105,13 @@ export default function ProgramHome() {
 
       <div className="max-w-7xl mx-auto px-6 relative">
 
-        <button className="bprev absolute z-20 left-[-5px] top-1/2 -translate-y-1/2
+        {/* PANAH KIRI */}
+        <button
+          className="bprev absolute z-20 left-[-5px] top-1/2 -translate-y-1/2
           w-11 h-11 bg-white border shadow-md text-red-500
           flex items-center justify-center hover:bg-red-500
-          hover:text-white transition">
+          hover:text-white transition"
+        >
           <FaArrowLeft />
         </button>
 
@@ -131,15 +136,17 @@ export default function ProgramHome() {
           ))}
         </Swiper>
 
-        <button className="bnext absolute z-20 right-[-5px] top-1/2 -translate-y-1/2
+        {/* PANAH KANAN */}
+        <button
+          className="bnext absolute z-20 right-[-5px] top-1/2 -translate-y-1/2
           w-11 h-11 bg-white border shadow-md text-red-500
           flex items-center justify-center hover:bg-red-500
-          hover:text-white transition">
+          hover:text-white transition"
+        >
           <FaArrowRight />
         </button>
 
       </div>
-
     </main>
   );
 }
@@ -202,6 +209,7 @@ function Card({ item, i, academic }) {
         transition-shadow duration-300"
     >
 
+      {/* FOTO */}
       <div className="w-[48%] overflow-hidden">
         <img
           src={`/images/${item.gambar}`}
@@ -211,10 +219,13 @@ function Card({ item, i, academic }) {
         />
       </div>
 
+      {/* ISI */}
       <div className="w-[52%] p-5 flex flex-col justify-center relative">
 
-        <div className={`w-11 h-11 ${bg} text-white
-          flex items-center justify-center mb-4`}>
+        <div
+          className={`w-11 h-11 ${bg} text-white
+          flex items-center justify-center mb-4`}
+        >
           <Icon />
         </div>
 
@@ -226,7 +237,9 @@ function Card({ item, i, academic }) {
           {item.deskripsi}
         </p>
 
-        <span className={`absolute bottom-0 left-0 w-full h-1 ${bg}`} />
+        <span
+          className={`absolute bottom-0 left-0 w-full h-1 ${bg}`}
+        />
 
       </div>
     </motion.div>
