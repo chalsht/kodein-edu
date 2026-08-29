@@ -140,7 +140,7 @@ export default function Footer() {
 
                 <p>
 
-                  info@kodeinedu.com
+                  kodeintekno@gmail.com
 
                 </p>
 
