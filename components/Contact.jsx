@@ -38,7 +38,7 @@ export default function Contact() {
   const kontak = [
     [FaMapMarkerAlt, "Alamat", "Jl. Pendidikan No. 123, Kota Bandung"],
     [FaPhoneAlt, "Telepon / WhatsApp", "0812-3456-7890"],
-    [FaEnvelope, "Email", "info@kodeinedu.com"],
+    [FaEnvelope, "Email", "kodeintekno@gmail.com"],
   ];
 
   return (
