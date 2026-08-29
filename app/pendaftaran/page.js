@@ -11,70 +11,65 @@ export default function Pendaftaran() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
     const res = await fetch("/api/pendaftaran", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(form),
     });
-
     const data = await res.json();
 
     if (data.success) {
       alert("Pendaftaran berhasil!");
       setForm(empty);
-    } else {
-      alert(data.message);
-    }
+    } else alert(data.message);
   };
 
   return (
-    <main className="min-h-screen bg-slate-100 pt-28 pb-16 px-5">
-      <div className="max-w-2xl mx-auto bg-white rounded-3xl shadow-lg p-8 md:p-10">
+    <main className="min-h-screen bg-white flex items-center justify-center px-5 py-24 relative overflow-hidden">
+      <div className="absolute top-32 left-0 w-72 h-32 bg-blue-100 rounded-r-full -rotate-6" />
+      <div className="absolute bottom-0 right-0 w-64 h-40 bg-blue-500 rounded-tl-full" />
 
-        <h1 className="text-4xl font-bold text-center text-slate-800">
-          Form Pendaftaran
-        </h1>
+      <div className="relative w-full max-w-md bg-white rounded-2xl shadow-lg p-8 sm:p-10">
+        <div className="text-center mb-8">
+          <div className="text-2xl font-bold text-blue-700 mb-6">
+            ● KODEIN
+            <p className="text-sm text-red-500">EDU CENTER</p>
+          </div>
+          <h1 className="text-3xl font-bold text-slate-900">
+            Daftar Sekarang
+          </h1>
+          <p className="text-slate-500 mt-2">
+            Silakan isi data diri untuk mendaftar program KODEIN.
+          </p>
+        </div>
 
-        <p className="text-center text-gray-500 mt-3 mb-10">
-          Silakan isi data diri untuk mendaftar program KODEIN.
-        </p>
-
-        <form onSubmit={handleSubmit} className="space-y-6">
-
-          <Input
-            label="Nama Lengkap"
-            name="nama"
-            value={form.nama}
-            onChange={handleChange}
-            placeholder="Masukkan nama lengkap"
-          />
-
-          <Input
-            label="Email"
-            name="email"
-            type="email"
-            value={form.email}
-            onChange={handleChange}
-            placeholder="Masukkan email"
-          />
-
-          <Input
-            label="Nomor HP"
-            name="no_hp"
-            value={form.no_hp}
-            onChange={handleChange}
-            placeholder="08xxxxxxxxxx"
-          />
+        <form onSubmit={handleSubmit} className="space-y-5">
+          {[
+            ["Nama Lengkap", "nama", "text", "Masukkan nama lengkap"],
+            ["Email", "email", "email", "Masukkan email"],
+            ["Nomor HP", "no_hp", "text", "08xxxxxxxxxx"],
+          ].map(([label, name, type, placeholder]) => (
+            <div key={name}>
+              <label className="font-semibold">{label}</label>
+              <input
+                type={type}
+                name={name}
+                value={form[name]}
+                onChange={handleChange}
+                placeholder={placeholder}
+                className="w-full border border-slate-300 rounded-xl p-3 mt-2 outline-none focus:border-blue-500"
+                required
+              />
+            </div>
+          ))}
 
           <div>
             <label className="font-semibold">Program</label>
-
             <select
               name="program"
               value={form.program}
               onChange={handleChange}
-              className="w-full border rounded-xl p-3 mt-2"
+              className="w-full border border-slate-300 rounded-xl p-3 mt-2 outline-none focus:border-blue-500"
               required
             >
               <option value="">-- Pilih Program --</option>
@@ -84,32 +79,11 @@ export default function Pendaftaran() {
             </select>
           </div>
 
-          <button
-            type="submit"
-            className="w-full bg-orange-500 hover:bg-orange-600 text-white font-bold py-4 rounded-xl"
-          >
+          <button className="w-full bg-orange-500 hover:bg-orange-600 text-white font-bold py-4 rounded-xl transition">
             Daftar
           </button>
-
         </form>
       </div>
     </main>
-  );
-}
-
-function Input({ label, name, type = "text", value, onChange, placeholder }) {
-  return (
-    <div>
-      <label className="font-semibold">{label}</label>
-      <input
-        type={type}
-        name={name}
-        value={value}
-        onChange={onChange}
-        placeholder={placeholder}
-        className="w-full border rounded-xl p-3 mt-2"
-        required
-      />
-    </div>
   );
 }
