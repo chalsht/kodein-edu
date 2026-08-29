@@ -2,123 +2,225 @@
 
 import { useState } from "react";
 import { motion } from "framer-motion";
-import { FaMapMarkerAlt, FaPhoneAlt, FaEnvelope } from "react-icons/fa";
+import Image from "next/image";
+import {
+  FaMapMarkerAlt,
+  FaPhoneAlt,
+  FaEnvelope,
+  FaPaperPlane,
+  FaArrowRight,
+} from "react-icons/fa";
 
 export default function Contact() {
   const [form, setForm] = useState({
-    nama: "", email: "", subjek: "", pesan: ""
+    nama: "",
+    email: "",
+    subjek: "",
+    pesan: "",
   });
 
   const kontak = [
-    [FaMapMarkerAlt, "Alamat", "Harvest City, Jl. Orchid Raya A, Ragemanunggal, Setu, Kabupaten Bekasi.", "text-sky-500 bg-sky-50"],
-    [FaPhoneAlt, "Telepon", "0812-3456-7890", "text-orange-500 bg-orange-50"],
-    [FaEnvelope, "Email", "info@kodeinedu.com", "text-red-500 bg-red-50"],
+    [FaMapMarkerAlt, "Alamat", <>Jl. Pendidikan No. 123<br />Kota Bandung, Jawa Barat 40123</>, "text-blue-600 bg-blue-50"],
+    [FaPhoneAlt, "Telepon / WhatsApp", "0812-3456-7890", "text-green-600 bg-green-50"],
+    [FaEnvelope, "Email", "info@kodeinedu.com", "text-red-600 bg-red-50"],
   ];
 
   async function kirimPesan(e) {
     e.preventDefault();
 
-    const res = await fetch("/api/pesan", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(form),
-    });
+    try {
+      const res = await fetch("/api/pesan", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(form),
+      });
 
-    const data = await res.json();
-    alert(data.message);
+      const data = await res.json();
+      alert(data.message);
 
-    if (data.success)
-      setForm({ nama: "", email: "", subjek: "", pesan: "" });
+      if (data.success)
+        setForm({ nama: "", email: "", subjek: "", pesan: "" });
+    } catch {
+      alert("Terjadi kesalahan saat mengirim pesan.");
+    }
   }
 
-  return (
-    <section id="kontak" className="relative py-24 bg-white overflow-hidden">
-      <div className="absolute -top-20 -right-20 w-64 h-64 bg-sky-50 rounded-full blur-3xl" />
-      <div className="max-w-6xl mx-auto px-5 relative">
+  const animasi = {
+    initial: { opacity: 0, y: 30 },
+    whileInView: { opacity: 1, y: 0 },
+    viewport: { once: true },
+    transition: { duration: 0.6 },
+  };
 
-        <motion.div
-          initial={{ opacity: 0, y: -30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          className="text-center mb-16"
-        >
-          <span className="bg-sky-50 text-sky-600 px-4 py-2 rounded-full text-sm font-semibold">
-            Hubungi Kami
+  return (
+    <section className="relative bg-white py-16 overflow-hidden">
+      <div className="max-w-6xl mx-auto px-5">
+
+        {/* Judul */}
+        <motion.div {...animasi} className="text-center mb-10">
+          <span className="bg-blue-50 text-blue-600 px-3 py-1 rounded-full text-xs font-bold">
+            HUBUNGI KAMI
           </span>
 
-          <h2 className="mt-6 text-4xl md:text-5xl font-black text-slate-800">
-            Kami Siap <span className="text-orange-500">Membantu Anda</span>
-          </h2>
+          <h1 className="mt-4 text-3xl md:text-5xl font-black text-slate-900">
+            Kami Siap Menjawab{" "}
+            <span className="text-blue-600">Pertanyaanmu</span>
+          </h1>
 
-          <p className="mt-4 text-gray-500">
-            Kirim pesan kepada kami dan kami akan segera membantu Anda.
+          <p className="mt-4 text-slate-600 leading-7">
+            Punya pertanyaan, butuh informasi lebih lanjut, atau ingin bekerja sama?
+            <br />
+            Jangan ragu untuk menghubungi kami.
+            <br />
+            Kami akan dengan senang hati membantu Anda.
           </p>
         </motion.div>
 
-        <div className="grid lg:grid-cols-2 gap-14 items-center">
+        {/* Kontak */}
+        <div className="grid lg:grid-cols-2 gap-10">
 
-          <motion.div
-            initial={{ opacity: 0, x: -40 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
-            className="space-y-7"
-          >
-            {kontak.map(([Icon, title, text, style], i) => (
-              <motion.div
-                key={title}
-                whileHover={{ x: 6 }}
-                className="flex gap-4 items-start"
-              >
-                <div className={`w-14 h-14 rounded-2xl flex items-center justify-center ${style}`}>
-                  <Icon className="text-xl" />
-                </div>
-
-                <div>
-                  <h3 className="font-bold text-slate-800">{title}</h3>
-                  <p className="text-sm text-gray-500 mt-1 max-w-sm">{text}</p>
-                </div>
-              </motion.div>
-            ))}
-          </motion.div>
-
+          {/* Form */}
           <motion.form
+            {...animasi}
             onSubmit={kirimPesan}
-            initial={{ opacity: 0, x: 40 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
-            className="bg-white p-7 rounded-3xl border border-gray-100 shadow-xl"
+            className="border border-slate-200 rounded-2xl p-6 shadow-sm"
           >
-            {["nama", "email", "subjek"].map((field) => (
-              <input
-                key={field}
-                type={field === "email" ? "email" : "text"}
-                placeholder={field === "nama" ? "Nama Lengkap" : field[0].toUpperCase() + field.slice(1)}
-                value={form[field]}
-                onChange={(e) => setForm({ ...form, [field]: e.target.value })}
-                className="w-full mb-4 p-4 bg-gray-50 border border-gray-200 rounded-xl outline-none focus:border-sky-400"
-                required
-              />
-            ))}
+            <h2 className="text-2xl font-black">Kirim Pesan</h2>
+            <div className="w-8 h-1 bg-red-600 rounded-full my-3 mb-5" />
 
+            <div className="grid md:grid-cols-2 gap-4">
+              {["nama", "email"].map((f) => (
+                <div key={f}>
+                  <label className="text-sm font-semibold">
+                    {f === "nama" ? "Nama Lengkap" : "Email"}
+                  </label>
+                  <input
+                    type={f === "email" ? "email" : "text"}
+                    placeholder={
+                      f === "nama"
+                        ? "Masukkan nama lengkap Anda"
+                        : "Masukkan email Anda"
+                    }
+                    value={form[f]}
+                    onChange={(e) => setForm({ ...form, [f]: e.target.value })}
+                    className="w-full mt-1.5 p-3 border rounded-lg outline-none focus:border-blue-500"
+                    required
+                  />
+                </div>
+              ))}
+            </div>
+
+            <label className="block text-sm font-semibold mt-4">
+              No. Telepon
+            </label>
+            <input
+              placeholder="Masukkan nomor telepon Anda"
+              value={form.subjek}
+              onChange={(e) => setForm({ ...form, subjek: e.target.value })}
+              className="w-full mt-1.5 p-3 border rounded-lg outline-none focus:border-blue-500"
+            />
+
+            <label className="block text-sm font-semibold mt-4">
+              Pesan
+            </label>
             <textarea
-              rows="5"
-              placeholder="Pesan"
+              rows="4"
+              placeholder="Tulis pesan Anda di sini..."
               value={form.pesan}
               onChange={(e) => setForm({ ...form, pesan: e.target.value })}
-              className="w-full mb-4 p-4 bg-gray-50 border border-gray-200 rounded-xl outline-none focus:border-sky-400 resize-none"
+              className="w-full mt-1.5 p-3 border rounded-lg outline-none focus:border-blue-500 resize-none"
               required
             />
 
             <motion.button
-              whileHover={{ y: -2 }}
-              whileTap={{ scale: 0.98 }}
-              className="w-full bg-orange-500 hover:bg-orange-600 text-white py-4 rounded-xl font-bold"
+              whileHover={{ scale: 1.02 }}
+              whileTap={{ scale: 0.97 }}
+              className="w-full mt-4 py-3 bg-red-600 hover:bg-red-700 text-white rounded-lg font-bold flex justify-center gap-3"
             >
-              Kirim Pesan
+              <FaPaperPlane /> Kirim Pesan
             </motion.button>
           </motion.form>
 
+          {/* Informasi Kontak - tanpa kotak */}
+          <motion.div
+            {...animasi}
+            className="lg:py-5 lg:px-4"
+          >
+            <h2 className="text-2xl font-black">Informasi Kontak</h2>
+            <div className="w-8 h-1 bg-red-600 rounded-full my-3 mb-5" />
+
+            <div>
+              {kontak.map(([Icon, title, text, warna], i) => (
+                <motion.div
+                  key={title}
+                  initial={{ opacity: 0, x: 30 }}
+                  whileInView={{ opacity: 1, x: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: i * 0.15, duration: 0.5 }}
+                  whileHover={{ x: 8 }}
+                  className="flex gap-4 py-4 border-b border-slate-200"
+                >
+                  <div className={`w-11 h-11 shrink-0 rounded-xl flex items-center justify-center ${warna}`}>
+                    <Icon />
+                  </div>
+
+                  <div>
+                    <h3 className="font-bold">{title}</h3>
+                    <p className="text-sm text-slate-600 mt-1">{text}</p>
+                  </div>
+                </motion.div>
+              ))}
+            </div>
+          </motion.div>
         </div>
+
+        {/* Banner */}
+        <motion.div
+          initial={{ opacity: 0, scale: 0.95, y: 40 }}
+          whileInView={{ opacity: 1, scale: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.8 }}
+          className="relative mt-10 min-h-[190px] overflow-hidden rounded-2xl bg-blue-700"
+        >
+          <motion.div
+            animate={{ y: [0, -8, 0] }}
+            transition={{ duration: 3, repeat: Infinity }}
+            className="relative z-10 p-7 md:p-10"
+          >
+            <h2 className="text-2xl md:text-3xl font-black text-white">
+              Siap Memulai Perjalanan Belajarmu?
+            </h2>
+
+            <p className="text-white/90 mt-2 leading-7">
+              Bergabung sekarang dan wujudkan masa depan cerah
+              <br />
+              bersama Kodein Edu Center!
+            </p>
+
+            <motion.a
+              href="/daftar"
+              whileHover={{ scale: 1.05, x: 5 }}
+              whileTap={{ scale: 0.95 }}
+              className="inline-flex items-center gap-3 mt-4 bg-white text-blue-600 px-5 py-3 rounded-lg font-bold"
+            >
+              Daftar Sekarang <FaArrowRight />
+            </motion.a>
+          </motion.div>
+
+          <motion.div
+            animate={{ y: [0, -6, 0] }}
+            transition={{ duration: 3, repeat: Infinity }}
+            className="absolute right-0 bottom-0 hidden md:block w-[48%] h-full"
+          >
+            <Image
+              src="/images/tangan.png"
+              alt="Belajar coding"
+              fill
+              className="object-contain object-bottom"
+            />
+          </motion.div>
+        </motion.div>
+
       </div>
     </section>
   );
