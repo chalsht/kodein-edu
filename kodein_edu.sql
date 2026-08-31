@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: Aug 20, 2026 at 01:58 AM
+-- Generation Time: Aug 31, 2026 at 11:27 PM
 -- Server version: 8.0.30
 -- PHP Version: 8.1.10
 
@@ -107,8 +107,7 @@ CREATE TABLE `materi` (
 --
 
 INSERT INTO `materi` (`id`, `program`, `kategori`, `judul`, `deskripsi`, `file_materi`, `created_at`) VALUES
-(1, 'Programmer', 'Program Unggulan', 'html', 'html dasar', 'https://youtu.be/hMDJyb7VkYw?si=Wrfu5V35KANvmG-D', '2026-08-06 06:46:46'),
-(4, 'IoT & Robotik', 'Program Unggulan', 'tess', 'tesss', '/materi/1786331730645-ERD--Entity-Relationship-Diagram-.pdf', '2026-08-10 03:15:30');
+(1, 'Programmer', 'Program Unggulan', 'html', 'html dasar', 'https://youtu.be/hMDJyb7VkYw?si=Wrfu5V35KANvmG-D', '2026-08-06 06:46:46');
 
 -- --------------------------------------------------------
 
@@ -132,28 +131,6 @@ CREATE TABLE `pendaftaran` (
 
 INSERT INTO `pendaftaran` (`id`, `nama`, `email`, `no_hp`, `program`, `created_at`, `status`) VALUES
 (9, 'chaca', 'chaca9266@gmail.com', '999999999986666', 'Programmer', '2026-08-10 03:42:05', 'Aktif');
-
--- --------------------------------------------------------
-
---
--- Table structure for table `pesan`
---
-
-CREATE TABLE `pesan` (
-  `id` int NOT NULL,
-  `nama` varchar(100) COLLATE utf8mb4_general_ci NOT NULL,
-  `email` varchar(100) COLLATE utf8mb4_general_ci NOT NULL,
-  `subjek` varchar(255) COLLATE utf8mb4_general_ci NOT NULL,
-  `pesan` text COLLATE utf8mb4_general_ci NOT NULL,
-  `created_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Dumping data for table `pesan`
---
-
-INSERT INTO `pesan` (`id`, `nama`, `email`, `subjek`, `pesan`, `created_at`) VALUES
-(1, 'inara', 'chaca9266@gmail.com', 'programming', 'kapan aja ada nya\n', '2026-07-31 03:20:25');
 
 -- --------------------------------------------------------
 
@@ -200,14 +177,6 @@ CREATE TABLE `quiz` (
   `opsi_d` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL,
   `jawaban_benar` char(1) COLLATE utf8mb4_general_ci DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Dumping data for table `quiz`
---
-
-INSERT INTO `quiz` (`id`, `materi_id`, `pertanyaan`, `opsi_a`, `opsi_b`, `opsi_c`, `opsi_d`, `jawaban_benar`) VALUES
-(1, 1, 'apa yang dimaksud html', 'html', 'js', 'php', 'css', 'A'),
-(2, 1, 'tess', 'tesssssss', 'tesss', 'tesss', 'tesss', 'C');
 
 -- --------------------------------------------------------
 
@@ -296,12 +265,6 @@ ALTER TABLE `pendaftaran`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `pesan`
---
-ALTER TABLE `pesan`
-  ADD PRIMARY KEY (`id`);
-
---
 -- Indexes for table `program`
 --
 ALTER TABLE `program`
@@ -361,12 +324,6 @@ ALTER TABLE `materi`
 --
 ALTER TABLE `pendaftaran`
   MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
-
---
--- AUTO_INCREMENT for table `pesan`
---
-ALTER TABLE `pesan`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `program`
