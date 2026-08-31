@@ -15,24 +15,35 @@ export default function Contact() {
   const [form, setForm] = useState({
     nama: "",
     email: "",
-    subjek: "",
     pesan: "",
   });
 
   const kirim = async (e) => {
     e.preventDefault();
 
-    const res = await fetch("/api/pesan", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(form),
-    });
+    try {
+      const res = await fetch("/api/kontak", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(form),
+      });
 
-    const data = await res.json();
-    alert(data.message);
+      const data = await res.json();
 
-    if (data.success)
-      setForm({ nama: "", email: "", subjek: "", pesan: "" });
+      alert(data.message);
+
+      if (data.success) {
+        setForm({
+          nama: "",
+          email: "",
+          pesan: "",
+        });
+      }
+    } catch (error) {
+      alert("Gagal mengirim pesan.");
+    }
   };
 
   const kontak = [
@@ -86,7 +97,10 @@ export default function Contact() {
                 placeholder="Nama Lengkap"
                 value={form.nama}
                 onChange={(e) =>
-                  setForm({ ...form, nama: e.target.value })
+                  setForm({
+                    ...form,
+                    nama: e.target.value,
+                  })
                 }
                 className="p-3 border rounded-lg outline-none focus:border-blue-500"
               />
@@ -97,7 +111,10 @@ export default function Contact() {
                 placeholder="Email"
                 value={form.email}
                 onChange={(e) =>
-                  setForm({ ...form, email: e.target.value })
+                  setForm({
+                    ...form,
+                    email: e.target.value,
+                  })
                 }
                 className="p-3 border rounded-lg outline-none focus:border-blue-500"
               />
@@ -109,12 +126,18 @@ export default function Contact() {
               placeholder="Tulis pesan Anda di sini..."
               value={form.pesan}
               onChange={(e) =>
-                setForm({ ...form, pesan: e.target.value })
+                setForm({
+                  ...form,
+                  pesan: e.target.value,
+                })
               }
               className="w-full mt-4 p-3 border rounded-lg resize-none outline-none focus:border-blue-500"
             />
 
-            <button className="w-full mt-4 py-3 bg-red-500 text-white rounded-lg font-bold flex justify-center items-center gap-2 hover:bg-red-600 hover:scale-[1.02] transition">
+            <button
+              type="submit"
+              className="w-full mt-4 py-3 bg-red-500 text-white rounded-lg font-bold flex justify-center items-center gap-2 hover:bg-red-600 hover:scale-[1.02] transition"
+            >
               <FaPaperPlane />
               Kirim Pesan
             </button>
@@ -144,7 +167,9 @@ export default function Contact() {
 
                 <div>
                   <b className="text-slate-900">{title}</b>
-                  <p className="text-sm text-slate-600 mt-1">{text}</p>
+                  <p className="text-sm text-slate-600 mt-1">
+                    {text}
+                  </p>
                 </div>
               </motion.div>
             ))}
