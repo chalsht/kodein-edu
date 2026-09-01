@@ -47,7 +47,7 @@ export default function Contact() {
   };
 
   const kontak = [
-    [FaMapMarkerAlt, "Alamat", "Jl. Pendidikan No. 123, Kota Bandung"],
+    [FaMapMarkerAlt, "Alamat", "Harvest City Jl. Orchid Raya A Ragemanunggal Setu Kabupaten Bekasi."],
     [FaPhoneAlt, "Telepon / WhatsApp", "0812-3456-7890"],
     [FaEnvelope, "Email", "kodeintekno@gmail.com"],
   ];
