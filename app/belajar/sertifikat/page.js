@@ -8,66 +8,55 @@ export default function Sertifikat() {
   useEffect(() => {
     const load = async () => {
       const email = localStorage.getItem("email");
-
       const res = await fetch(`/api/sertifikat-user?email=${email}`);
-
       const hasil = await res.json();
       setData(Array.isArray(hasil) ? hasil : []);
     };
-
     load();
   }, []);
 
   if (data.length === 0) {
     return (
-      <div className="p-10">
-        <h1 className="text-3xl font-bold">
-          Sertifikat Belum Tersedia
-        </h1>
+      <div className="min-h-[calc(100vh-100px)] p-10">
+        <h1 className="text-3xl font-bold">Sertifikat Belum Tersedia</h1>
       </div>
     );
   }
 
-  const sertifikat = data[0];
-  const fileSertifikat = sertifikat.file_sertifikat;
+  const file = data[0].file_sertifikat;
 
   return (
-    <div className="min-h-screen bg-gray-50 p-6 md:p-10">
+    <div className="min-h-[calc(100vh-100px)] bg-gray-50 p-6 md:p-10">
       <div className="mx-auto max-w-4xl rounded-2xl bg-white p-6 shadow">
-
-        {/* Judul */}
         <h1 className="mb-6 text-center text-3xl font-bold">
           Sertifikat Saya
         </h1>
 
-        {/* Preview Sertifikat */}
         <div className="flex justify-center">
-          {fileSertifikat?.toLowerCase().endsWith(".pdf") ? (
+          {file?.toLowerCase().endsWith(".pdf") ? (
             <iframe
-              src={fileSertifikat}
+              src={file}
               className="h-[450px] w-full max-w-3xl rounded-lg border"
               title="Sertifikat"
             />
           ) : (
             <img
-              src={fileSertifikat}
+              src={file}
               alt="Sertifikat"
-              className="w-full max-w-3xl rounded-lg border shadow-sm"
+              className="w-full max-w-3xl rounded-lg border"
             />
           )}
         </div>
 
-        {/* Tombol Download */}
-        <div className="mt-6 flex justify-center">
+        <div className="mt-6 text-center">
           <a
-            href={fileSertifikat}
+            href={file}
             download="Sertifikat-Kodein.pdf"
-            className="rounded-lg bg-blue-500 px-6 py-3 font-semibold text-white transition hover:bg-blue-600"
+            className="inline-block rounded-lg bg-blue-500 px-6 py-3 font-semibold text-white hover:bg-blue-600"
           >
             ↓ Download Sertifikat
           </a>
         </div>
-
       </div>
     </div>
   );
