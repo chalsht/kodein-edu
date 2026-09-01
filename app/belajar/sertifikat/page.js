@@ -12,13 +12,16 @@ export default function Sertifikat() {
       const hasil = await res.json();
       setData(Array.isArray(hasil) ? hasil : []);
     };
+
     load();
   }, []);
 
   if (data.length === 0) {
     return (
-      <div className="min-h-[calc(100vh-100px)] p-10">
-        <h1 className="text-3xl font-bold">Sertifikat Belum Tersedia</h1>
+      <div className="min-h-[calc(100vh-100px)] flex items-center justify-center bg-gray-50">
+        <h1 className="text-4xl font-extrabold tracking-tight text-slate-800">
+          Sertifikat Belum Tersedia
+        </h1>
       </div>
     );
   }
@@ -28,7 +31,7 @@ export default function Sertifikat() {
   return (
     <div className="min-h-[calc(100vh-100px)] bg-gray-50 p-6 md:p-10">
       <div className="mx-auto max-w-4xl rounded-2xl bg-white p-6 shadow">
-        <h1 className="mb-6 text-center text-3xl font-bold">
+        <h1 className="mb-6 text-center text-3xl font-bold text-slate-800">
           Sertifikat Saya
         </h1>
 
@@ -36,14 +39,14 @@ export default function Sertifikat() {
           {file?.toLowerCase().endsWith(".pdf") ? (
             <iframe
               src={file}
-              className="h-[450px] w-full max-w-3xl rounded-lg border"
               title="Sertifikat"
+              className="h-[450px] w-full max-w-3xl rounded-lg border"
             />
           ) : (
             <img
               src={file}
               alt="Sertifikat"
-              className="w-full max-w-3xl rounded-lg border"
+              className="w-full max-w-3xl rounded-lg border shadow-sm"
             />
           )}
         </div>
@@ -52,7 +55,7 @@ export default function Sertifikat() {
           <a
             href={file}
             download="Sertifikat-Kodein.pdf"
-            className="inline-block rounded-lg bg-blue-500 px-6 py-3 font-semibold text-white hover:bg-blue-600"
+            className="inline-block rounded-lg bg-blue-500 px-6 py-3 font-semibold text-white transition hover:bg-blue-600"
           >
             ↓ Download Sertifikat
           </a>
